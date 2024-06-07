@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User, } = require('../models');
 const ApiError = require('../../utils/ApiError');
-const isEmailValid = require('../../utils/emailValidation');
 
 dotenv.config();
 
@@ -45,12 +44,6 @@ const register = async (req, res) => {
     } = req.body;
 
     // validasi
-    const validateEmail = isEmailValid(email);
-    if (!email) throw new ApiError(400, 'Email tidak boleh kosong.');
-    if (!validateEmail) throw new ApiError(400, 'Email tidak valid.');
-    if (!password) throw new ApiError(400, 'Password tidak boleh kosong.');
-    if (!username) throw new ApiError(400, 'Username tidak boleh kosong.');
-
     const user = await User.findOne({ where: { email, }, });
     const usernameExist = await User.findOne({ where: { username, }, });
 

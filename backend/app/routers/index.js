@@ -1,5 +1,6 @@
 const { Router, } = require('express');
 const auth = require('./auth');
+const film = require('./film');
 
 const router = Router();
 
@@ -10,5 +11,6 @@ router.get('/api/apa', (req, res) => {
 });
 
 router.use('/api/users', auth);
+router.use('/api/films', film);
 
 module.exports = router;
